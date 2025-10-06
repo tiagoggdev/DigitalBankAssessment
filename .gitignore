@@ -38,8 +38,6 @@ DigitalBankAssessment-frontend/package-lock.json
 DigitalBankAssessment-frontend/yarn.lock
 
 /**/.dockerignore
-Dockerfile
-docker-compose.override.yml
 **/docker-data/
 **/volumes/
 **/tmp/
