@@ -1,0 +1,14 @@
+<h2 mat-dialog-title class="text-lg font-semibold">
+    {{ data.title || 'Confirmar acción' }}
+</h2>
+
+<mat-dialog-content class="mt-2 text-on-surface-variant">
+    {{ data.message || '¿Estás seguro?' }}
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="mt-4">
+  <button mat-button [mat-dialog-close]="false">Cancelar</button>
+  <button mat-flat-button color="warn" [mat-dialog-close]="true">
+    Eliminar
+  </button>
+</mat-dialog-actions>

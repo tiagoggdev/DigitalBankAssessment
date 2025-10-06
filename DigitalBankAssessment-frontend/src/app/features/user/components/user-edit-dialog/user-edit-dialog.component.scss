@@ -1,0 +1,51 @@
+.dialog-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1565c0;
+  padding: 1rem 1.5rem 0.5rem;
+}
+
+.title-icon {
+  color: #1976d2;
+  font-size: 1.8rem;
+}
+
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1rem 1.5rem;
+  min-width: 520px;
+  max-width: 650px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.dialog-actions {
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+
+  button {
+    min-width: 110px;
+  }
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background: #fdfdfd;
+}

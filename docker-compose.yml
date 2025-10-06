@@ -1,0 +1,55 @@
+services:
+  db:
+    build:
+      context: ./db    
+      dockerfile: Dockerfile
+    container_name: db
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test: ["CMD", "test", "-f", "/tmp/db-ready"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: ${ACCEPT_EULA}
+    volumes:
+      - sql_data:/var/opt/mssql
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: ./DigitalBankAssessment-backend
+      dockerfile: DigitalBankAssessment.API/Dockerfile
+    container_name: api_container
+    ports:
+      - "${API_PORT}:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ConnectionStrings__DefaultConnection=Server=db;Database=${DB_NAME};User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./DigitalBankAssessment-frontend
+      dockerfile: Dockerfile
+    container_name: webapp_container
+    ports:
+      - "4200:4000"
+    depends_on:
+      - api
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  sql_data:

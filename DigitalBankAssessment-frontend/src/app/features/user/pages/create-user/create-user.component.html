@@ -1,0 +1,64 @@
+<section
+  class="create-user-container flex flex-col gap-6 p-6 rounded-xl bg-surface-container-high text-on-surface shadow-md max-w-md mx-auto"
+>
+  <h2 class="text-2xl font-semibold">Crear Usuario</h2>
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    aria-label="Formulario de creación de usuario"
+    class="flex flex-col gap-5"
+  >
+    <mat-form-field appearance="outline" class="full-width block">
+      <mat-label>Nombre</mat-label>
+      <input matInput placeholder="Ingresa el nombre" formControlName="nombre" />
+      @if (form.get('nombre')?.hasError('required')) {
+        <mat-error>El nombre es obligatorio</mat-error>
+      }
+      @if (form.get('nombre')?.hasError('minlength')) {
+        <mat-error>Debe tener al menos 2 caracteres</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width block">
+      <mat-label>Fecha de nacimiento</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento" />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      @if (form.get('fechaNacimiento')?.hasError('required')) {
+        <mat-error>La fecha es obligatoria</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width block">
+      <mat-label>Sexo</mat-label>
+      <mat-select formControlName="sexo">
+        <mat-option value="M">Masculino</mat-option>
+        <mat-option value="F">Femenino</mat-option>
+      </mat-select>
+      @if (form.get('sexo')?.hasError('required')) {
+        <mat-error>Debe seleccionar un sexo</mat-error>
+      }
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      class="submit-btn h-12 flex items-center justify-center gap-2"
+      type="submit"
+      [disabled]="isSubmitting || form.invalid"
+    >
+      @if (isSubmitting) {
+        <mat-progress-spinner
+          diameter="22"
+          mode="indeterminate"
+          color="accent"
+          class="!inline-block"
+        ></mat-progress-spinner>
+        Guardando...
+      } @else {
+        Guardar Usuario
+      }
+    </button>
+  </form>
+</section>

@@ -1,0 +1,41 @@
+<h2 mat-dialog-title class="dialog-title">
+  Editar Usuario
+</h2>
+
+<mat-divider></mat-divider>
+
+<div mat-dialog-content [formGroup]="form" class="dialog-container">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Nombre completo</mat-label>
+    <input matInput formControlName="nombre" placeholder="Ingrese el nombre completo" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Fecha de nacimiento</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      formControlName="fechaNacimiento"
+      placeholder="Seleccione una fecha"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Sexo</mat-label>
+    <mat-select formControlName="sexo">
+      <mat-option value="M">Masculino</mat-option>
+      <mat-option value="F">Femenino</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-stroked-button color="warn" (click)="onCancel()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="onSave()" [disabled]="form.invalid">
+    Guardar
+  </button>
+</div>
