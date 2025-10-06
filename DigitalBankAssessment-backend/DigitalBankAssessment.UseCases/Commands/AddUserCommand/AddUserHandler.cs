@@ -19,6 +19,13 @@ namespace DigitalBankAssessment.UseCases.Commands.AddUserCommand
         {
             try
             {
+                var sexo = char.ToUpper(request.Sexo);
+
+                if (sexo != 'F' && sexo != 'M')
+                {
+                    return Result<bool>.Fail("El campo 'Sexo' solo puede ser 'F' (Femenino) o 'M' (Masculino).");
+                }
+
                 await _context.Database.ExecuteSqlRawAsync(
                     "EXEC sp_CreateUsuario @Nombre, @FechaNacimiento, @Sexo",
                         new SqlParameter("@Nombre", request.Nombre),

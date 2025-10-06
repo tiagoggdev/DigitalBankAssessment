@@ -22,6 +22,16 @@ namespace DigitalBankAssessment.UseCases.Commands.EditUserCommand
                 var user = await _context.Usuarios.FindAsync(request.Id);
                 if (user == null) return Result<bool>.Fail("Usuario no encontrado");
 
+                if (request.Sexo != null)
+                {
+                    var sexo = char.ToUpper(request.Sexo.Value);
+
+                    if (sexo != 'F' && sexo != 'M')
+                    {
+                        return Result<bool>.Fail("El campo 'Sexo' solo puede ser 'F' (Femenino) o 'M' (Masculino).");
+                    }
+                }
+
                 await _context.Database.ExecuteSqlRawAsync(
                     "EXEC sp_EditUsuario @Id, @Nombre, @FechaNacimiento, @Sexo",
                     new SqlParameter("@Id", request.Id),
